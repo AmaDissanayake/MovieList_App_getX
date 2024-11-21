@@ -9,14 +9,14 @@ class TrendingSlider extends StatelessWidget {
     required this.snapshot,
   });
 
-  final AsyncSnapshot snapshot;
+  final List snapshot;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: CarouselSlider.builder(
-        itemCount: snapshot.data!.length,
+        itemCount: snapshot.length,
         options: CarouselOptions(
           height: 300,
           autoPlay: true,
@@ -33,7 +33,7 @@ class TrendingSlider extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailsScreen(
-                    movie: snapshot.data[itemIndex],
+                    movie: snapshot[itemIndex],
                   ),
                 ),
               );
@@ -46,7 +46,7 @@ class TrendingSlider extends StatelessWidget {
                 child: Image.network(
                   filterQuality: FilterQuality.high,
                   fit: BoxFit.cover,
-                  '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}',
+                  '${Constants.imagePath}${snapshot[itemIndex].posterPath}',
                 ),
               ),
             ),

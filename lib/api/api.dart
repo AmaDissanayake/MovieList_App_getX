@@ -1,46 +1,47 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:movie_list_app/constants.dart';
 import 'package:movie_list_app/models/movie.dart';
+import 'package:movie_list_app/constants.dart';
 
 class Api {
-  static const _trendingUrl =
-      'https://api.themoviedb.org/3/trending/movie/day?api_key=${Constants.apiKey}';
-  static const _topRatedUrl =
-      'https://api.themoviedb.org/3/movie/top_rated?api_key=${Constants.apiKey}';
-  static const _upcomingUrl =
-      'https://api.themoviedb.org/3/movie/upcoming?api_key=${Constants.apiKey}';
+  final String _baseUrl = 'https://api.themoviedb.org/3';
 
   Future<List<Movie>> getTrendingMovies() async {
-    final response = await http.get(Uri.parse(_trendingUrl));
+    final response = await http.get(
+      Uri.parse('$_baseUrl/trending/movie/day?api_key=${Constants.apiKey}'),
+    );
+
     if (response.statusCode == 200) {
-      final decodedData = json.decode(response.body)['results'] as List;
-      // print(decodedData);
-      return decodedData.map((movie) => Movie.fromJson(movie)).toList();
+      final List<dynamic> data = json.decode(response.body)['results'];
+      return data.map((movie) => Movie.fromJson(movie)).toList();
     } else {
-      throw Exception('Something happened');
+      throw Exception('Failed to load trending movies');
     }
   }
 
   Future<List<Movie>> getTopRatedMovies() async {
-    final response = await http.get(Uri.parse(_topRatedUrl));
+    final response = await http.get(
+      Uri.parse('$_baseUrl/movie/top_rated?api_key=${Constants.apiKey}'),
+    );
+
     if (response.statusCode == 200) {
-      final decodedData = json.decode(response.body)['results'] as List;
-      // print(decodedData);
-      return decodedData.map((movie) => Movie.fromJson(movie)).toList();
+      final List<dynamic> data = json.decode(response.body)['results'];
+      return data.map((movie) => Movie.fromJson(movie)).toList();
     } else {
-      throw Exception('Something happened');
+      throw Exception('Failed to load top-rated movies');
     }
   }
 
   Future<List<Movie>> getUpcomingMovies() async {
-    final response = await http.get(Uri.parse(_upcomingUrl));
+    final response = await http.get(
+      Uri.parse('$_baseUrl/movie/upcoming?api_key=${Constants.apiKey}'),
+    );
+
     if (response.statusCode == 200) {
-      final decodedData = json.decode(response.body)['results'] as List;
-      // print(decodedData);
-      return decodedData.map((movie) => Movie.fromJson(movie)).toList();
+      final List<dynamic> data = json.decode(response.body)['results'];
+      return data.map((movie) => Movie.fromJson(movie)).toList();
     } else {
-      throw Exception('Something happened');
+      throw Exception('Failed to load upcoming movies');
     }
   }
 }

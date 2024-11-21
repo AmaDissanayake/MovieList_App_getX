@@ -8,7 +8,7 @@ class MoviesSlider extends StatelessWidget {
     required this.snapshot,
   });
 
-  final AsyncSnapshot snapshot;
+  final List snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MoviesSlider extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemCount: snapshot.data!.length,
+        itemCount: snapshot.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -28,7 +28,7 @@ class MoviesSlider extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailsScreen(
-                      movie: snapshot.data[index],
+                      movie: snapshot[index],
                     ),
                   ),
                 );
@@ -41,7 +41,7 @@ class MoviesSlider extends StatelessWidget {
                   child: Image.network(
                     filterQuality: FilterQuality.high,
                     fit: BoxFit.cover,
-                    '${Constants.imagePath}${snapshot.data![index].posterPath}',
+                    '${Constants.imagePath}${snapshot[index].posterPath}',
                   ),
                 ),
               ),

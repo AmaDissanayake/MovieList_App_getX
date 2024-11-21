@@ -1,14 +1,14 @@
 class Movie {
-  String title;
-  String backDropPath;
-  String originalTitle;
-  String overview;
-  String posterPath;
-  String releaseDate;
-  double voteAverage;
+  final String title;
+  final String backDropPath;
+  final String originalTitle;
+  final String overview;
+  final String posterPath;
+  final String releaseDate;
+  final double voteAverage;
 
-  Movie({
-    required this.title,
+  Movie(
+    this.title, {
     required this.backDropPath,
     required this.originalTitle,
     required this.overview,
@@ -17,9 +17,10 @@ class Movie {
     required this.voteAverage,
   });
 
+  // Factory method to create a Movie object from a JSON object
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      title: json["title"],
+      json["title"],
       backDropPath: json["backdrop_path"],
       originalTitle: json["original_title"],
       overview: json["overview"],
